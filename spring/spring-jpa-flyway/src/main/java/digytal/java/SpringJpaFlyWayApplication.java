@@ -18,8 +18,8 @@ public class SpringJpaFlyWayApplication {
 	@Bean
 	public CommandLineRunner run(EnderecoRepository repository) throws Exception {
 		return args -> {
-			Endereco end = new Endereco("01001000", "Praça da Sé", "Sé", "São Paulo");
-			repository.save(end);
+			//Endereco end = new Endereco("01001000", "Praça da Sé", "Sé", "São Paulo");
+			//repository.save(end);
 		};
 	}
 }

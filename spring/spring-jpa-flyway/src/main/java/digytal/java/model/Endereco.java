@@ -1,10 +1,14 @@
 package digytal.java.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 
 @Entity
+@Table(name = "tab_endereco",  schema = "schema_one")
 public class Endereco {
+	@Id
 	private String cep;
 	private String logradouro;
 	private String bairro;
