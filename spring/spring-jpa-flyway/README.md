@@ -25,21 +25,21 @@ Nosso foco aqui é na pasta `src/main/resources`
 	- **V2__create_schema_two.sql**: Contém script para gerar o `shema_two`.
 	- **V3__carga_ceps.sql**: Contém script para realizar uma carga de ceps. **NOTA**: Foi necessário criar via script a tabela `schema_one.tab_endereco`   
 
-#### Configuração do Banco para usar o Spring Data Jpa
+#### Configuração do Postgres e Flyway
 
-##### Precisamos adicionar duas novas dependencias em nosso projeto: O starter do Spring Data Jpa e o banco de sua preferencia, no exemplo estamos usando o H2
+##### Precisamos adicionar duas novas dependencias em nosso projeto
 
 ```
-<!-- RECURSOS DO JPA COM SPRING -->
+<!-- FLY WAY -->
 <dependency>
-	<groupId>org.springframework.boot</groupId>
-	<artifactId>spring-boot-starter-data-jpa</artifactId>
+	<groupId>org.flywaydb</groupId>
+	<artifactId>flyway-core</artifactId>
 </dependency>
 
-<!-- BANCO EM MEMORIA -->
+<!-- POSTGRES -->
 <dependency>
-	<groupId>com.h2database</groupId>
-	<artifactId>h2</artifactId>
+	<groupId>org.postgresql</groupId>
+	<artifactId>postgresql</artifactId>
 	<scope>runtime</scope>
 </dependency>
     
