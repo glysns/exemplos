@@ -67,6 +67,7 @@ spring.jpa.show-sql=true
 1. Execute a classe `digytal.java.SpringJpaFlyWayApplication`: A aplicação será iniciada.
    	* Esta classe contém um Bean que realizar uma instrução de exemplo de inclusão de Endereço (comentado).
    
+![](https://github.com/glysns/java-exemplos/blob/main/spring/spring-jpa-flyway/src/main/resources/postgres_flyway.png)
 
 #### Veja também
 
