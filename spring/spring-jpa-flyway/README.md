@@ -15,7 +15,7 @@ Projeto Spring para demonstração do uso de Springboot, Postgres e Controle de 
 #### Requisitos
 ###### [Database Versioning With Flyway and Java](https://dzone.com/articles/database-versioning-with-flyway-and-java)
 ###### [Flyway: Naming Patterns Matter](https://www.red-gate.com/blog/database-devops/flyway-naming-patterns-matter)
-![](https://github.com/glysns/java-exemplos/blob/main/spring/spring-rest-api/src/main/resources/swagger.png)
+![](https://github.com/glysns/java-exemplos/blob/main/spring/spring-jpa-flyway/src/main/resources/flyway_naming.png)
 
 #### Estrutura do Projeto
 Nosso foco aqui é na pasta `src/main/resources` 
