@@ -1,0 +1,1 @@
+CREATE SCHEMA IF NOT EXISTS apl_cadastro;
