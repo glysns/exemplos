@@ -18,6 +18,7 @@ public class ModelToEntityTest {
 			Marca dto = new Marca();
 			dto.nome="FORD";
 			dto.id=1234;
+			dto.ativo=true;
 			MarcaEntity entity = ModelConveter.getInstance(dto).newInstance();
 			assertEquals(dto.id, entity.getId());
 			assertEquals(dto.nome, entity.getNome());
@@ -37,6 +38,7 @@ public class ModelToEntityTest {
 			dto.nome="FORD";
 			dto.id=1234;
 			dto.marca=marca;
+			dto.ativo=true;
 			
 			
 			ProdutoEntity entity = ModelConveter.getInstance(dto).newInstance();
@@ -46,6 +48,7 @@ public class ModelToEntityTest {
 			assertNotNull(entity.getMarca());
 			assertEquals(dto.marca.id, entity.getMarca().getId());
 			assertEquals(dto.marca.nome, entity.getMarca().getNome());
+			assertEquals(dto.ativo, entity.isAtivo());
 			
 		}catch (Exception e) {
 			e.printStackTrace();

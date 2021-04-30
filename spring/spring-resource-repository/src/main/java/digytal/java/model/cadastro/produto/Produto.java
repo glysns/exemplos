@@ -6,5 +6,6 @@ public class Produto {
 	public Integer id;
 	public String nome;
 	public Marca marca;
+	public boolean ativo;
 	
 }

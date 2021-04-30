@@ -1,7 +1,6 @@
 package digytal.java.model.cadastro.produto;
 
 import digytal.java.commons.Model;
-import digytal.java.model.cadastro.marca.Marca;
 import digytal.java.model.cadastro.marca.MarcaEntity;
 
 public class ProdutoEntity extends Produto implements Model {
@@ -24,5 +23,11 @@ public class ProdutoEntity extends Produto implements Model {
 	}
 	public void setMarca(MarcaEntity marca) {
 		this.marca = marca;
+	}
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
 	}
 }

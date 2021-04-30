@@ -15,5 +15,10 @@ public class MarcaEntity extends Marca implements Model {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+	public boolean isAtivo() {
+		return ativo;
+	}
+	public void setAtivo(boolean ativo) {
+		this.ativo = ativo;
+	}
 }
