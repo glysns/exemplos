@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 import digytal.java.infra.converter.ModelConveter;
+import digytal.java.model.cadastro.estoque.Compra;
+import digytal.java.model.cadastro.estoque.CompraEntity;
+import digytal.java.model.cadastro.estoque.CompraItem;
+import digytal.java.model.cadastro.estoque.CompraItemEntity;
 import digytal.java.model.cadastro.marca.Marca;
 import digytal.java.model.cadastro.marca.MarcaEntity;
 import digytal.java.model.cadastro.produto.Produto;
@@ -75,6 +79,29 @@ public class ModelToEntityTest {
 			assertEquals(dto.ativo, entity.isAtivo());
 			assertEquals(3, entity.getTags().size());
 			assertEquals(true, entity.getTags().containsAll(dto.tags));
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	@Test
+	void modelToEntityDetail(){
+		try {
+			
+			Compra dto = new Compra();
+			dto.nota="ABC123";
+			dto.itens.add(new CompraItem(123, 10.0, 3.0, 30.0));
+			dto.itens.add(new CompraItem(99, 7.0, 4.0, 28.0));
+			
+			
+			CompraEntity entity = ModelConveter.getInstance(dto).newInstance();
+			assertEquals(dto.nota, entity.getNota());
+			assertEquals(2, entity.getItens().size());
+			
+			CompraItemEntity item = entity.getItens().get(0);
+			assertEquals(item.getValorTotal(), 30.0);
+			assertEquals(item.getQuantidade(), 10.0);
+			
 			
 		}catch (Exception e) {
 			e.printStackTrace();
