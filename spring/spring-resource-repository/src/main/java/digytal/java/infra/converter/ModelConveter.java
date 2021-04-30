@@ -15,6 +15,6 @@ public abstract class ModelConveter {
 	String method(String prefix,String field) {
 		return prefix+field.substring(0,1).toUpperCase() + field.substring(1,field.length());
 	}
-	public abstract Object newInstance() throws Exception;
+	public abstract <E> E newInstance() throws Exception;
 	abstract Object converter(Object other) throws Exception;
 }
