@@ -20,20 +20,17 @@ class ModelEntityConverter extends ModelConveter {
 			Object value= field.get(src);
 			if(value!=null) {
 				if(isCollection(value)) {
-					set(other,field.getName(),value);
+					List list = get(field, other);
+					for(Object i: (List) value) {
+						Object ni = isDomainClass(i) ? getInstance(i).newInstance():i;
+						add(list,ni);
+					}
 				}else if(isDomainClass(value)) {
 					value = getInstance(value).newInstance();
 					set(other,field.getName(),value);
-				}else if(isItem(value)) {
-					List list = get(field, other);
-					for(Object i: (List) value) {
-						Object n = getInstance(i).newInstance();
-						add(list,n);
-					}
 				}else {
 					set(other,field.getName(),value);
 				}
-				
 			}
 		}
 		return other;

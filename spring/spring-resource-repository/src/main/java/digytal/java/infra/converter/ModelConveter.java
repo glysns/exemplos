@@ -44,6 +44,10 @@ public abstract class ModelConveter {
 		Method method = object.getClass().getMethod(method(prefix,field.getName()));
 		return (E) method.invoke(object);
 	}
+	void field(Object object,String name, Object value) throws Exception {
+		Field f= object.getClass().getDeclaredField(name);
+		f.set(object, value);
+	}
 	Object set(Object object,String name, Object value) throws Exception {
 		//Class type = field.getType().isPrimitive() && field.getType().getName().equalsIgnoreCase("boolean") ? boolean.class:field.getType();
 		Class type = value.getClass().getName().equalsIgnoreCase("java.lang.Boolean") ? boolean.class:value.getClass();
