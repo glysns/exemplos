@@ -14,5 +14,4 @@ class EntityModelConverter extends ModelConveter {
 		return null;
 	}
 
-
 }
