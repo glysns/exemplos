@@ -1,4 +1,4 @@
-package digytal.java.model.marca;
+package digytal.java.model.categoria;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,8 +9,8 @@ import javax.persistence.Table;
 import digytal.java.commons.Model;
 
 @Entity
-@Table(name = "tab_marca")
-public class MarcaEntity extends Marca implements Model {
+@Table(name = "tab_categoria")
+public class CategoriaEntity extends Categoria implements Model{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -25,10 +25,5 @@ public class MarcaEntity extends Marca implements Model {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public boolean isAtivo() {
-		return ativo;
-	}
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
+
 }
