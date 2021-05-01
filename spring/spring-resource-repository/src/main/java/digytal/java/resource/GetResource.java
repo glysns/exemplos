@@ -3,14 +3,13 @@ package digytal.java.resource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import digytal.java.infra.converter.ModelConveter;
+import digytal.java.model.categoria.CategoriaEntity;
 import digytal.java.model.marca.Marca;
 import digytal.java.model.marca.MarcaEntity;
+import digytal.java.model.produto.ProdutoEntity;
 import digytal.java.repository.PersistRepository;
 
 @RestController
@@ -21,5 +20,13 @@ public class GetResource {
 	@GetMapping("/marcas/{id}")
 	public Marca marca(@PathVariable Integer id) throws Exception {
 		return repository.find(MarcaEntity.class, id);
+	}
+	@GetMapping("/categorias/{id}")
+	public Marca categoria(@PathVariable Integer id) throws Exception {
+		return repository.find(CategoriaEntity.class, id);
+	}
+	@GetMapping("/produtos/{id}")
+	public Marca produto(@PathVariable Integer id) throws Exception {
+		return repository.find(ProdutoEntity.class, id);
 	}
 }

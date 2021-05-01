@@ -18,6 +18,10 @@ public class PersistRepository {
 	public void save(Object entity) {
 		em.persist(entity);
 	}
+	@Transactional
+	public void update(Object entity) {
+		em.merge(entity);
+	}
 	public <E> E find(Class entityClass, Object id) {
 		return (E) em.find(entityClass, id);
 	}
