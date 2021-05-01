@@ -27,7 +27,8 @@ public class CustomRepository {
 		em.merge(entity);
 	}
 	public <E> E find(Class entityClass, Object id) {
-		return (E) em.find(entityClass, id);
+		Object entity = em.find(entityClass, id);
+		return (E) entity;
 	}
 	public List list(Class entityClass) {
 		Query q = em.createQuery(String.format("SELECT e FROM %s e",entityClass.getName()));
