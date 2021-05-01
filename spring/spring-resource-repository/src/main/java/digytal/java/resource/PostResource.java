@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 import digytal.java.infra.converter.ModelConveter;
 import digytal.java.model.categoria.Categoria;
 import digytal.java.model.categoria.CategoriaEntity;
+import digytal.java.model.estoque.Compra;
+import digytal.java.model.estoque.CompraEntity;
 import digytal.java.model.marca.Marca;
 import digytal.java.model.marca.MarcaEntity;
 import digytal.java.model.produto.Produto;
@@ -33,6 +35,11 @@ public class PostResource {
 	@PostMapping("/produtos")
 	public void produto(@RequestBody Produto dto) throws Exception {
 		ProdutoEntity entity = ModelConveter.getInstance(dto).newInstance();
+		repository.save(entity);
+	}
+	@PostMapping("/compras")
+	public void compra(@RequestBody Compra dto) throws Exception {
+		CompraEntity entity = ModelConveter.getInstance(dto).newInstance();
 		repository.save(entity);
 	}
 }

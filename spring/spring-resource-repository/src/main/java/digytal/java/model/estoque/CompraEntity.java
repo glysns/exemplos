@@ -3,7 +3,24 @@ package digytal.java.model.estoque;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.PostPersist;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "tab_compra")
 public class CompraEntity extends Compra {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getNota() {
 		return nota;
 	}
@@ -18,4 +35,10 @@ public class CompraEntity extends Compra {
 	public void setItens(List<CompraItemEntity> itens) {
 		this.itens = itens;
 	}
+	
+	@PostPersist
+	public void persist() {
+		this.itens.forEach(i->i.setCompra(this.id));
+	}
+	
 }
