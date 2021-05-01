@@ -2,7 +2,7 @@ package digytal.java.model.estoque;
 
 public class CompraItem {
 	public Integer id;
-	public Integer compra;
+	//public Integer compra;
 	public Integer produto;
 	public Double quantidade;
 	public Double valorUnitario;
@@ -17,13 +17,4 @@ public class CompraItem {
 	public CompraItem() {
 		
 	}
-	public Integer getCompra() {
-		return compra;
-	}
-	public void setCompra(Integer compra) {
-		this.compra = compra;
-	}
-	
-	
-	
 }

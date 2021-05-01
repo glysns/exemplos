@@ -3,11 +3,13 @@ package digytal.java.model.estoque;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.PostPersist;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,7 +29,8 @@ public class CompraEntity extends Compra {
 	public void setNota(String nota) {
 		this.nota = nota;
 	}
-	
+	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@JoinColumn(name = "compra_id")
 	private List<CompraItemEntity> itens = new ArrayList<CompraItemEntity>();
 	public List<CompraItemEntity> getItens() {
 		return itens;
@@ -36,9 +39,5 @@ public class CompraEntity extends Compra {
 		this.itens = itens;
 	}
 	
-	@PostPersist
-	public void persist() {
-		this.itens.forEach(i->i.setCompra(this.id));
-	}
 	
 }

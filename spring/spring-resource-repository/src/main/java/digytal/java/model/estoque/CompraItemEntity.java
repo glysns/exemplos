@@ -1,5 +1,6 @@
 package digytal.java.model.estoque;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ public class CompraItemEntity extends CompraItem {
 	public void setId(Integer id) {
 		this.id = id;
 	}
+	@Column(name = "cd_produto")
 	public Integer getProduto() {
 		return produto;
 	}
@@ -29,12 +31,14 @@ public class CompraItemEntity extends CompraItem {
 	public void setQuantidade(Double quantidade) {
 		this.quantidade = quantidade;
 	}
+	@Column(name = "vl_unit")
 	public Double getValorUnitario() {
 		return valorUnitario;
 	}
 	public void setValorUnitario(Double valorUnitario) {
 		this.valorUnitario = valorUnitario;
 	}
+	@Column(name = "vl_total")
 	public Double getValorTotal() {
 		return valorTotal;
 	}
