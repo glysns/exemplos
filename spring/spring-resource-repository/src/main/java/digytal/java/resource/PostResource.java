@@ -39,6 +39,8 @@ public class PostResource {
 	}
 	@PostMapping("/compras")
 	public void compra(@RequestBody Compra dto) throws Exception {
+		//{"itens": [{"produto": 1,"quantidade": 10.0,"valorTotal": 30.0,"valorUnitario": 3.0}],"nota": "123123"}
+		
 		CompraEntity entity = ModelConveter.getInstance(dto).newInstance();
 		repository.save(entity);
 	}
