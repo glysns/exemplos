@@ -45,7 +45,7 @@ public class SpringResourceRepositoryApplication {
 			
 			ProdutoEntity produto = new ProdutoEntity();
 			produto.setCategoria(1);
-			//produto.setMarca(marca);
+			produto.setMarca(marca);
 			produto.setNome("NOTE BOOK DELL 2X1 INSPIRON");
 			
 			List<String> tags = new ArrayList<String>();
@@ -55,7 +55,7 @@ public class SpringResourceRepositoryApplication {
 			
 			produto.setTags(tags);
 			
-			pr.save(categoria);
+			pr.save(produto);
 			
 		};
 	}	
