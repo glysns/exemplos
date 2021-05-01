@@ -10,6 +10,11 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "tab_compra_item")
 public class CompraItemEntity extends CompraItem {
+	public CompraItemEntity() {}
+	public CompraItemEntity(Integer produto, Double quantidade, Double valorUnitario, Double valorTotal) {
+		super(produto,quantidade, valorUnitario, valorTotal);
+	}
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {

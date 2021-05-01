@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 @Repository
-public class PersistRepository {
+public class CustomRepository {
 	@PersistenceContext
 	private EntityManager em;
 	

@@ -9,9 +9,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import digytal.java.model.categoria.CategoriaEntity;
+import digytal.java.model.estoque.CompraEntity;
+import digytal.java.model.estoque.CompraItemEntity;
 import digytal.java.model.marca.MarcaEntity;
 import digytal.java.model.produto.ProdutoEntity;
-import digytal.java.repository.PersistRepository;
+import digytal.java.repository.CustomRepository;
 
 @SpringBootApplication
 public class SpringResourceRepositoryApplication {
@@ -21,7 +23,7 @@ public class SpringResourceRepositoryApplication {
 	}
 	
 	@Bean
-	public CommandLineRunner run(PersistRepository pr) throws Exception {
+	public CommandLineRunner run(CustomRepository pr) throws Exception {
 		return args -> {
 			MarcaEntity marca = new MarcaEntity();
 			marca.setAtivo(true);
@@ -56,6 +58,12 @@ public class SpringResourceRepositoryApplication {
 			produto.setTags(tags);
 			
 			pr.save(produto);
+			
+			CompraEntity compra = new CompraEntity();
+			compra.setNota("NF123");
+			compra.getItens().add(new CompraItemEntity(1, 10.0, 2.75, 27.5));
+			compra.getItens().add(new CompraItemEntity(2, 5.0, 3.0, 15.0));
+			pr.save(compra);
 			
 		};
 	}	

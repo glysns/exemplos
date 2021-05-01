@@ -14,13 +14,13 @@ import digytal.java.model.marca.Marca;
 import digytal.java.model.marca.MarcaEntity;
 import digytal.java.model.produto.Produto;
 import digytal.java.model.produto.ProdutoEntity;
-import digytal.java.repository.PersistRepository;
+import digytal.java.repository.CustomRepository;
 
 @RestController
 @RequestMapping("/get")
 public class GetResource {
 	@Autowired
-	private PersistRepository repository;
+	private CustomRepository repository;
 	@GetMapping("/marcas/{id}")
 	public Marca marca(@PathVariable Integer id) throws Exception {
 		return repository.find(MarcaEntity.class, id);

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,8 @@ public class CompraEntity extends Compra {
 	}
 	private List<CompraItemEntity> itens = new ArrayList<CompraItemEntity>();
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true, fetch = FetchType.LAZY)
+	//@LazyCollection(LazyCollectionOption.TRUE)
 	@JoinColumn(name = "cd_compra")
 	public List<CompraItemEntity> getItens() {
 		return itens;

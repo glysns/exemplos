@@ -13,13 +13,13 @@ import digytal.java.model.marca.Marca;
 import digytal.java.model.marca.MarcaEntity;
 import digytal.java.model.produto.Produto;
 import digytal.java.model.produto.ProdutoEntity;
-import digytal.java.repository.PersistRepository;
+import digytal.java.repository.CustomRepository;
 
 @RestController
 @RequestMapping("/put")
 public class PutResource {
 	@Autowired
-	private PersistRepository repository;
+	private CustomRepository repository;
 	@PutMapping("/marcas")
 	public void marca(@RequestBody Marca dto) throws Exception {
 		MarcaEntity entity = ModelConveter.getInstance(dto).newInstance();
