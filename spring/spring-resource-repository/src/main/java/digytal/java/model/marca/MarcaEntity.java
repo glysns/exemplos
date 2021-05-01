@@ -1,5 +1,6 @@
 package digytal.java.model.marca;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class MarcaEntity extends Marca implements Model {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	@Column(name = "fl_ativo")
 	public boolean isAtivo() {
 		return ativo;
 	}

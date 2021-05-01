@@ -9,6 +9,7 @@ public class Produto {
 	public Integer id;
 	public String nome;
 	public Marca marca;
+	public Integer categoria;
 	public boolean ativo;
 	public List<String> tags = new ArrayList<String>();
 }
