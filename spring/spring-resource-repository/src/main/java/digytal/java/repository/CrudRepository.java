@@ -1,7 +1,6 @@
 package digytal.java.repository;
 
 import java.lang.reflect.ParameterizedType;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,15 +9,13 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-import digytal.java.commons.Dto;
 import digytal.java.commons.Model;
 import digytal.java.infra.converter.ModelConveter;
 import digytal.java.infra.sql.Condition;
 import digytal.java.infra.sql.JPQLUtil;
-import digytal.java.model.produto.ProdutoView;
 
 //SEARCH REPOSITORY
-public class CrudRepository <D extends Dto> {
+public class CrudRepository <D> {
 	@PersistenceContext
 	protected EntityManager em;
 	protected Class<D> dto;
@@ -98,6 +95,8 @@ public class CrudRepository <D extends Dto> {
 		return (E) entity;
 		//return convert(entity);
 	}
+	
+	/*
 	protected <E> List<E> list(String field, Object param) {
 		return list(field, "=", param);
 	}
@@ -112,8 +111,12 @@ public class CrudRepository <D extends Dto> {
 		List list= em.createQuery(sql).setParameter("param", param ).getResultList();
 		return list;
 	}
-	protected <E> List<E> list(Class cls, Condition ... conditions) {
-		JPQLUtil jpql = JPQLUtil.of(ProdutoView.class).conditions(Arrays.asList(conditions));
+	*/
+	protected <E> List<E> list(List<Condition> conditions) {
+		return list(dto, conditions);
+	}
+	protected <E> List<E> list(Class cls, List<Condition> conditions) {
+		JPQLUtil jpql = JPQLUtil.of(getEntityView(cls)).conditions(conditions);
 		Query query = em.createQuery(jpql.sql());
 		jpql.params.entrySet().forEach(p->{
 			query.setParameter(p.getKey(), p.getValue());

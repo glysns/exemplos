@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import digytal.java.commons.Dto;
 import digytal.java.commons.http.Response;
 import digytal.java.infra.exception.config.BusinessException;
 import digytal.java.repository.CrudRepository;
 
-public abstract class ResourceRepository<D extends Dto> extends CrudRepository<D>{
+public abstract class ResourceRepository<D> extends CrudRepository<D>{
 	protected void process(D dto) throws BusinessException {} ;	
 	@PostMapping("/save")
 	@Transactional

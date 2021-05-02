@@ -1,9 +1,8 @@
 package digytal.java.model.marca;
 
-import digytal.java.commons.Dto;
 import io.swagger.annotations.ApiModelProperty;
 
-public class Marca implements Dto{
+public class Marca{
 	@ApiModelProperty(name = "Id da marca", example = "1")
 	public Integer id;
 	@ApiModelProperty(name = "Nome da marca", example = "DELL COMPUTADORES")
