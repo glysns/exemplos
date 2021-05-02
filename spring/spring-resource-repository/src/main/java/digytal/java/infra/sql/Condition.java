@@ -34,6 +34,21 @@ public class Condition {
 			this.symbol = op;
 		}		
 	}
+	public static Condition defaultCondition(String field, Object value) {
+		Object v = value;
+		Condition.Operator o= Condition.Operator.EQUALS;
+		if(value instanceof String) {
+			o = Condition.Operator.LIKE;
+			v="%" + value+"%";
+		}
+		Condition condition = new Condition();
+		condition.comparator=o;
+		condition.logic=Condition.Operator.AND;
+		condition.field=field;
+		condition.value=v;
+		return condition;
+		
+	}
 	public static void main(String[] args) throws Exception {
 		List<Condition> conditions = new ArrayList<Condition>();
 		Condition c = new Condition();

@@ -97,23 +97,7 @@ public class CrudRepository <D> {
 		return (E) entity;
 		//return convert(entity);
 	}
-	
-	/*
-	protected <E> List<E> list(String field, Object param) {
-		return list(field, "=", param);
-	}
-	protected <E> List<E> list(String field, String operator, Object param) {
-		return list(dto, field, operator, param); 
-	}
-	protected <E> List<E> list(Class cls, String field, Object param) {
-		return list(cls, field,"=", param);
-	}
-	protected <E> List<E> list(Class cls, String field, String operator, Object param) {
-		String sql = String.format("SELECT e FROM  %s e WHERE e.%s %s :param", getEntityView(cls).getName(),field, operator);
-		List list= em.createQuery(sql).setParameter("param", param ).getResultList();
-		return list;
-	}
-	*/
+	//{"conditions": {"nome":"NOTE BOOK DELL 2X1 INSPIRON"}}
 	protected <E> List<E> list(Class cls, Map<String, Object> conditions) {
 		List<Condition> filter = filter(conditions);
 		JPQLUtil jpql = JPQLUtil.of(getEntityView(cls)).conditions(filter);
@@ -126,12 +110,7 @@ public class CrudRepository <D> {
 	}
 	protected List<Condition> filter(Map<String, Object> conditions){
 		return conditions.entrySet().stream().map(c->{
-			Condition nc = new Condition();
-			nc.comparator=Condition.Operator.EQUALS;
-			nc.logic=Condition.Operator.AND;
-			nc.field=c.getKey();
-			nc.value=c.getValue();
-			return nc;
+			return Condition.defaultCondition(c.getKey(), c.getValue());
 		}).collect(Collectors.toList());
 	}
 }
