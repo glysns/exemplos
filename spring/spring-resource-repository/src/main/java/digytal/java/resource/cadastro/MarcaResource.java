@@ -15,7 +15,7 @@ import digytal.java.resource.ResourceRepository;
 @RequestMapping ("/marcas")
 public class MarcaResource extends ResourceRepository<Marca> {
 	@GetMapping("/other/{id}")
-	public Response one(@PathVariable("id") Integer id)  throws BusinessException {
+	public Response other(@PathVariable("id") Integer id)  throws BusinessException {
 		Object model= find(Produto.class, id);
 		return Response.ok(model);
 	}

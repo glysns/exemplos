@@ -73,7 +73,7 @@ public class CrudRepository <D extends Dto> {
 		return (E) entity;
 	}
 	public <E> E find(Class type, Object id) {
-		Object entity = em.find(getEntity(dto), id);
+		Object entity = em.find(getEntity(type), id);
 		return (E) entity;
 		//return convert(entity);
 	}
