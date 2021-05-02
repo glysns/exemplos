@@ -19,9 +19,6 @@ import digytal.java.model.marca.MarcaEntity;
 @Entity
 @Table(name = "tab_produto")
 public class ProdutoEntity extends Produto implements Model {
-	private MarcaEntity marca;
-	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Integer getId() {
@@ -37,6 +34,7 @@ public class ProdutoEntity extends Produto implements Model {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	private MarcaEntity marca;
 	
 	@ManyToOne
 	@JoinColumn(name = "cd_marca")
@@ -46,6 +44,7 @@ public class ProdutoEntity extends Produto implements Model {
 	public void setMarca(MarcaEntity marca) {
 		this.marca = marca;
 	}
+	
 	@Column(name = "cd_categoria")
 	public Integer getCategoria() {
 		return categoria;
