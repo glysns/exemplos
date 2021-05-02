@@ -1,6 +1,7 @@
 package digytal.java.repository;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +13,9 @@ import javax.persistence.Query;
 import digytal.java.commons.Dto;
 import digytal.java.commons.Model;
 import digytal.java.infra.converter.ModelConveter;
+import digytal.java.infra.sql.Condition;
+import digytal.java.infra.sql.JPQLUtil;
+import digytal.java.model.produto.ProdutoView;
 
 //SEARCH REPOSITORY
 public class CrudRepository <D extends Dto> {
@@ -108,7 +112,13 @@ public class CrudRepository <D extends Dto> {
 		List list= em.createQuery(sql).setParameter("param", param ).getResultList();
 		return list;
 	}
-	protected void a() {
-		Query q = null;
+	protected <E> List<E> list(Class cls, Condition ... conditions) {
+		JPQLUtil jpql = JPQLUtil.of(ProdutoView.class).conditions(Arrays.asList(conditions));
+		Query query = em.createQuery(jpql.sql());
+		jpql.params.entrySet().forEach(p->{
+			query.setParameter(p.getKey(), p.getValue());
+		});
+		List list= query.getResultList();
+		return list;
 	}
 }
