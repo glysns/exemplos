@@ -15,4 +15,5 @@ public abstract class ResourceRepository<D extends Dto> extends CrudRepository<D
 		Object response= insert(instance);
 		return response;
 	}
+	
 }
