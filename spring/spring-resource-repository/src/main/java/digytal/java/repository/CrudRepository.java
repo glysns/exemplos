@@ -2,6 +2,8 @@ package digytal.java.repository;
 
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -112,16 +114,24 @@ public class CrudRepository <D> {
 		return list;
 	}
 	*/
-	protected <E> List<E> list(List<Condition> conditions) {
-		return list(dto, conditions);
-	}
-	protected <E> List<E> list(Class cls, List<Condition> conditions) {
-		JPQLUtil jpql = JPQLUtil.of(getEntityView(cls)).conditions(conditions);
+	protected <E> List<E> list(Class cls, Map<String, Object> conditions) {
+		List<Condition> filter = filter(conditions);
+		JPQLUtil jpql = JPQLUtil.of(getEntityView(cls)).conditions(filter);
 		Query query = em.createQuery(jpql.sql());
 		jpql.params.entrySet().forEach(p->{
 			query.setParameter(p.getKey(), p.getValue());
 		});
 		List list= query.getResultList();
 		return list;
+	}
+	protected List<Condition> filter(Map<String, Object> conditions){
+		return conditions.entrySet().stream().map(c->{
+			Condition nc = new Condition();
+			nc.comparator=Condition.Operator.EQUALS;
+			nc.logic=Condition.Operator.AND;
+			nc.field=c.getKey();
+			nc.value=c.getValue();
+			return nc;
+		}).collect(Collectors.toList());
 	}
 }
