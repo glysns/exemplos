@@ -33,4 +33,9 @@ public class ProdutoView {
 	@Column(name = "fl_ativo")
 	public boolean ativo;
 	
+	@Column(name = "ano_fabric")
+	public Integer anoFabricacao;
+	
+	public Double preco;
+	
 }

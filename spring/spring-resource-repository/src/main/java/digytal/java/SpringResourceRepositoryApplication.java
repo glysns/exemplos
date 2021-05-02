@@ -51,6 +51,8 @@ public class SpringResourceRepositoryApplication {
 				produto.setCategoria(1);
 				produto.setMarca(marca);
 				produto.ativo=true;
+				produto.anoFabricacao=2020;
+				produto.preco = 2045.99;
 				produto.setNome("NOTE BOOK DELL 2X1 INSPIRON");
 				
 				List<String> tags = new ArrayList<String>();

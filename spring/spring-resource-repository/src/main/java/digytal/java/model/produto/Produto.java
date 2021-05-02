@@ -10,6 +10,9 @@ public class Produto {
 	public String nome;
 	public Marca marca;
 	public Integer categoria;
+	public Integer anoFabricacao;
+	public Double preco;
 	public boolean ativo;
 	public List<String> tags = new ArrayList<String>();
+	
 }

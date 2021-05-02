@@ -59,6 +59,19 @@ public class ProdutoEntity extends Produto implements Model {
 	public void setAtivo(boolean ativo) {
 		this.ativo = ativo;
 	}
+	@Column(name = "ano_fabric")
+	public Integer getAnoFabricacao() {
+		return anoFabricacao;
+	}
+	public void setAnoFabricacao(Integer anoFabricacao) {
+		this.anoFabricacao = anoFabricacao;
+	}
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+	public Double getPreco() {
+		return preco;
+	}
 	
 	@ElementCollection
 	@CollectionTable(name = "tab_prod_tagas", joinColumns = @JoinColumn(name = "cd_produto"))
