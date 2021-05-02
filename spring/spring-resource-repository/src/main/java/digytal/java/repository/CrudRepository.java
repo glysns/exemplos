@@ -110,7 +110,7 @@ public class CrudRepository <D> {
 	}
 	protected List<Condition> filter(Map<String, Object> conditions){
 		return conditions.entrySet().stream().map(c->{
-			return Condition.defaultCondition(c.getKey(), c.getValue());
+			return Condition.condition(c.getKey(), c.getValue());
 		}).collect(Collectors.toList());
 	}
 }

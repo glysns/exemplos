@@ -34,16 +34,24 @@ public class Condition {
 			this.symbol = op;
 		}		
 	}
-	public static Condition defaultCondition(String field, Object value) {
+	public static Condition condition(String field, Object value) {
+		return condition(field, Condition.Operator.EQUALS, value, Condition.Operator.AND);
+	}
+	public static Condition condition(String field, Condition.Operator comparator, Object value) {
+		return condition(field, comparator, value, Condition.Operator.AND);
+	}
+	public static Condition condition(String field, Condition.Operator comparator, Object value, Condition.Operator logic) {
+		return condition(field, comparator, value, true, logic);
+	}
+	public static Condition condition(String field, Condition.Operator comparator, Object value, boolean like, Condition.Operator logic) {
 		Object v = value;
-		Condition.Operator o= Condition.Operator.EQUALS;
-		if(value instanceof String) {
-			o = Condition.Operator.LIKE;
+		if( like && value instanceof String) {
+			comparator = Condition.Operator.LIKE;
 			v="%" + value+"%";
 		}
 		Condition condition = new Condition();
-		condition.comparator=o;
-		condition.logic=Condition.Operator.AND;
+		condition.comparator=comparator;
+		condition.logic=logic;
 		condition.field=field;
 		condition.value=v;
 		return condition;
