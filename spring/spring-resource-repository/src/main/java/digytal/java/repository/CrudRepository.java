@@ -3,6 +3,8 @@ package digytal.java.repository;
 import java.lang.reflect.ParameterizedType;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 
 import digytal.java.commons.Dto;
@@ -17,8 +19,11 @@ public class CrudRepository <D extends Dto> {
 		this.dto = (Class<D>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
 	}
 	private Class getEntity() {
+		return getEntity(dto);
+	}
+	private Class getEntity(Class dto) {
 		try {
-			return Class.forName(String.format("%s.%sEntity", dto.getPackage().getName(), dto.getSimpleName()));
+			return Class.forName(String.format("%s.%sEntity", dto.getPackage().getName(), dto.getSimpleName().replaceAll("Entity", "")));
 		} catch (ClassNotFoundException e) {
 			return null;
 		}
@@ -49,5 +54,27 @@ public class CrudRepository <D extends Dto> {
 			id = entity.getId();
 		}
 		return id;
+	}
+	
+	public boolean exists(String field, Object param) {
+		return findBy(field, param)!=null;
+	}
+	public <D>D findBy(String field, Object param) {
+		try {
+			String sql = String.format("SELECT e FROM  %s e WHERE e.%s = :param", dto.getName(),field);
+			Object entity= em.createQuery(sql).setParameter("param", param ).getSingleResult();
+			return (D) entity;
+		} catch (NoResultException | NonUniqueResultException e) {
+			return null;
+		}
+	}
+	public <E> E find(Object id) {
+		Object entity = em.find(getEntity(), id);
+		return (E) entity;
+	}
+	public <E> E find(Class type, Object id) {
+		Object entity = em.find(getEntity(dto), id);
+		return (E) entity;
+		//return convert(entity);
 	}
 }
