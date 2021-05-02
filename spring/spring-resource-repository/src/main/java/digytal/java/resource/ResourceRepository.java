@@ -8,6 +8,7 @@ import digytal.java.commons.Dto;
 import digytal.java.repository.CrudRepository;
 
 public abstract class ResourceRepository<D extends Dto> extends CrudRepository<D>{
+	protected void process(D dto) throws BusinessException {} ;	
 	@PostMapping("/save")
 	@Transactional
 	public Object post(@RequestBody D instance)  throws RuntimeException {
