@@ -30,6 +30,15 @@ public class Condition {
 			this.symbol = op;
 		}		
 	}
+	public static boolean apply(Object value) {
+		return value !=null && !value.toString().isEmpty();
+	}
+	public static Condition of(String field,Object value) {
+		return of(field,Operator.EQUALS, value);
+	}
+	public static Condition of(String field, Operator comparator, Object value) {
+		return of(field,comparator, value,true, Operator.AND);
+	}
 	public static Condition of(Entry<String, Object> condition) {
 		return of(condition,Operator.EQUALS);
 	}

@@ -1,6 +1,7 @@
 package digytal.java.repository;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -103,7 +104,7 @@ public class CrudRepository <D> {
 		return list(dto);
 	}
 	protected <E> List<E> list(Class cls) {
-		return list(cls, Map.of());
+		return list(cls, new HashMap<>());
 	}
 	protected <E> List<E> list(Map<String, Object> conditions) {
 		return list(dto,conditions);

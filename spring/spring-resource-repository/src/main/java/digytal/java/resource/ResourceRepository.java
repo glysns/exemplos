@@ -14,11 +14,11 @@ import digytal.java.infra.sql.Search;
 import digytal.java.repository.CrudRepository;
 
 public abstract class ResourceRepository<D> extends CrudRepository<D>{
-	protected void process(D dto) throws BusinessException {} ;	
+	protected void save(D dto) throws BusinessException {} ;	
 	@PostMapping("/save")
 	@Transactional
 	public Response post(@RequestBody D instance)  throws RuntimeException {
-		process	(instance);
+		save	(instance);
 		Object response= insert(instance);
 		return Response.ok(response);
 	}
@@ -31,8 +31,9 @@ public abstract class ResourceRepository<D> extends CrudRepository<D>{
 	public Response all()  throws BusinessException {
 		return Response.ok(list());
 	}
-		@PostMapping(path="/search")
-	public List search(@RequestBody Search search) {
-		return list(search.conditions);
+	@PostMapping(path="/search")
+	public Response search(@RequestBody Search search) {
+		Object result = list(search.conditions);
+		return Response.ok(result);
 	}
 }

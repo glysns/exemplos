@@ -25,7 +25,7 @@ public abstract class ModelConveter {
 	
 	boolean isDomainClass(Object o){
 		Class c = o.getClass();
-		return !( c.isPrimitive() || c.getName().startsWith("java."));
+		return !( c.isEnum() || c.isPrimitive() || c.getName().startsWith("java."));
 	}
 	boolean isCollection(Object o) {
 		  Class c = o.getClass();
