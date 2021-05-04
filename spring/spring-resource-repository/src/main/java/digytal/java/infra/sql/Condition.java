@@ -29,21 +29,7 @@ public class Condition {
 			this.symbol = op;
 		}		
 	}
-	public static boolean validate(Entry<String, Object> condition) {
-		Object value = condition.getValue();
-		if(value !=null && !value.toString().isEmpty()) {
-			String v = value.toString();
-			if(v.matches("-?\\d+"))
-				value = Integer.valueOf(v);
-			else if(v.matches("-?\\d+\\.\\d+"))
-				value = Double.valueOf(v);
-			condition.setValue(value);	
-			System.out.println(value.getClass());
-			return true ;
-		}else
-			return false;
-		
-	}
+
 	public static Condition of(String field,Object value) {
 		return of(field,Operator.EQUALS, value);
 	}
@@ -60,17 +46,30 @@ public class Condition {
 		return of(condition.getKey(), comparator, condition.getValue(), true, logic);
 	}
 	public static Condition of(String field, Operator comparator, Object value, boolean like, Operator logic) {
-		Object v = value;
-		if( like && value instanceof String) {
-			comparator = Operator.LIKE;
-			v="%" + value+"%";
-		}
+		Object v = validate(value, like);
 		Condition condition = new Condition();
+		comparator = like?Operator.LIKE:comparator;
 		condition.comparator=comparator;
 		condition.logic=logic;
 		condition.field=field;
 		condition.value=v;
 		return condition;
+		
+	}
+	private static Object validate(Object value, boolean like) {
+		if(value !=null && !value.toString().isEmpty()) {
+			String v = value.toString();
+			if(v.matches("-?\\d+"))
+				value = Integer.valueOf(v);
+			else if(v.matches("-?\\d+\\.\\d+"))
+				value = Double.valueOf(v);
+			else if(like) {
+				value="%" + value+"%";
+			}
+			System.out.println(value.getClass());
+			return value ;
+		}else
+			return null;
 		
 	}
 	@Override

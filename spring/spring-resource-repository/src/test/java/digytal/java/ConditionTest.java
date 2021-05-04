@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
@@ -16,8 +18,15 @@ public class ConditionTest {
 		Map<String, Object>filters = new HashMap<String,Object>();
 		filters.put("tema", "1");
 		filters.put("preco", "2.75");
-		filters.entrySet().stream()
-		.filter(f->Condition.validate(f)).count();
+		
+		List<Condition> conditions = filters.entrySet().stream().map(c->{
+			return Condition.of(c);
+		}).collect(Collectors.toList());
+		
+		assertEquals(1, conditions.get(1).value);
+		assertEquals(2.75, conditions.get(0).value);
+		
+		
 	}
 	// https://docs.microsoft.com/pt-br/dotnet/standard/base-types/quantifiers-in-regular-expressions
 	//validar
