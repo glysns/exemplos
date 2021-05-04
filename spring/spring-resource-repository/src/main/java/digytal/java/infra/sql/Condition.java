@@ -1,5 +1,4 @@
 package digytal.java.infra.sql;
-
 import java.util.Map.Entry;
 
 public class Condition {
@@ -30,8 +29,20 @@ public class Condition {
 			this.symbol = op;
 		}		
 	}
-	public static boolean apply(Object value) {
-		return value !=null && !value.toString().isEmpty();
+	public static boolean validate(Entry<String, Object> condition) {
+		Object value = condition.getValue();
+		if(value !=null && !value.toString().isEmpty()) {
+			String v = value.toString();
+			if(v.matches("-?\\d+"))
+				value = Integer.valueOf(v);
+			else if(v.matches("-?\\d+\\.\\d+"))
+				value = Double.valueOf(v);
+			condition.setValue(value);	
+			System.out.println(value.getClass());
+			return true ;
+		}else
+			return false;
+		
 	}
 	public static Condition of(String field,Object value) {
 		return of(field,Operator.EQUALS, value);
