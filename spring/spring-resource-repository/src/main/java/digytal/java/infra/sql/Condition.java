@@ -1,4 +1,5 @@
 package digytal.java.infra.sql;
+
 import java.util.Map.Entry;
 
 public class Condition {
@@ -30,39 +31,46 @@ public class Condition {
 		}		
 	}
 
-	public static Condition of(String field,Object value) {
-		return of(field,Operator.EQUALS, value);
+	public static Condition of(String field,Object value,Class ... clsEnum) {
+		return of(field,Operator.EQUALS, value,clsEnum);
 	}
-	public static Condition of(String field, Operator comparator, Object value) {
-		return of(field,comparator, value,true, Operator.AND);
+	public static Condition of(String field, Operator comparator, Object value,Class ... clsEnum) {
+		return of(field,comparator, value,true, Operator.AND,clsEnum);
 	}
-	public static Condition of(Entry<String, Object> condition) {
-		return of(condition,Operator.EQUALS);
+	public static Condition of(Entry<String, Object> condition,Class ... clsEnum) {
+		return of(condition,Operator.EQUALS,clsEnum);
 	}
-	public static Condition of(Entry<String, Object> condition, Operator comparator) {
-		return of(condition, comparator,Operator.AND);
+	public static Condition of(Entry<String, Object> condition, Operator comparator,Class ... clsEnum) {
+		return of(condition, comparator,Operator.AND,clsEnum);
 	}
-	public static Condition of(Entry<String, Object> condition, Operator comparator, Operator logic) {
-		return of(condition.getKey(), comparator, condition.getValue(), true, logic);
+	public static Condition of(Entry<String, Object> condition, Operator comparator, Operator logic, Class ... clsEnum) {
+		return of(condition.getKey(), comparator, condition.getValue(), true, logic,clsEnum);
 	}
-	public static Condition of(String field, Operator comparator, Object value, boolean like, Operator logic) {
-		Object v = validate(value, like);
+	public static Condition of(String field, Operator comparator, Object value, boolean like, Operator logic, Class ... clsEnum) {
+		value = prepare(value, like);
 		Condition condition = new Condition();
-		comparator = like?Operator.LIKE:comparator;
-		condition.comparator=comparator;
-		condition.logic=logic;
+		if(clsEnum.length>0)
+			value = Enum.valueOf(clsEnum[0], value.toString().toUpperCase().replaceAll("\\%", ""));
+		else if( like && value instanceof String) {
+			comparator = Operator.LIKE;
+		}
+		
 		condition.field=field;
-		condition.value=v;
+		condition.comparator=comparator;
+		condition.value=value;
+		condition.logic=logic;
 		return condition;
 		
 	}
-	private static Object validate(Object value, boolean like) {
+	private static Object prepare(Object value, boolean like) {
 		if(value !=null && !value.toString().isEmpty()) {
 			String v = value.toString();
 			if(v.matches("-?\\d+"))
 				value = Integer.valueOf(v);
 			else if(v.matches("-?\\d+\\.\\d+"))
 				value = Double.valueOf(v);
+			else if(v.matches("true|false"))
+				value = Boolean.valueOf(v);
 			else if(like) {
 				value="%" + value+"%";
 			}

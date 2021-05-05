@@ -14,6 +14,19 @@ import digytal.java.infra.sql.Condition;
 
 public class ConditionTest {
 	@Test
+	public void validateTrueFalseTest() {
+		Map<String, Object>filters = new HashMap<String,Object>();
+		filters.put("valido", true);
+		
+		List<Condition> conditions = filters.entrySet().stream().map(c->{
+			return Condition.of(c);
+		}).collect(Collectors.toList());
+		
+		assertEquals(true, conditions.get(0).value);
+		
+		
+	}
+	@Test
 	public void validateTest() {
 		Map<String, Object>filters = new HashMap<String,Object>();
 		filters.put("tema", "1");

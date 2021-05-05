@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class JPQLUtil {
-	public Class entity;
+	private Class entity;
 	public List<Condition> conditions = new ArrayList<Condition>();
 	public Map<String, Object> params = new HashMap<String, Object>();
 	public static JPQLUtil instance;
@@ -23,11 +23,13 @@ public class JPQLUtil {
 	public String sql() {
 		StringBuilder sb = new StringBuilder(String.format("SELECT e FROM %s e", instance.entity.getName()));
 		int p=0;
-		sb.append(instance.conditions.size()==0?"":" WHERE ");
 		for(Condition c: instance.conditions) {
-			String pname ="p"+p++;
-			sb.append(String.format("e.%s %s :%s %s ", c.field, c.comparator.symbol, pname, (conditions.size()==p?"" :c.logic)));
-			params.put(pname, c.value);
+			if(c.value!=null) {
+				sb.append(p==0?" WHERE ":" ");
+				String pname ="p"+p++;
+				sb.append(String.format("e.%s %s :%s %s ", c.field, c.comparator.symbol, pname, (conditions.size()==p?"" :c.logic)));
+				params.put(pname, c.value);
+			}
 		}
 		System.out.println(sb.toString());
 		return sb.toString();
