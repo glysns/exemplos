@@ -1,23 +1,29 @@
 package utils;
 
 public class Parcela {
-	private String parcela;
-	private String date;
+	private Integer numero;
+	private String descricao;
+	private String vencimento;
 	private Double valor;
-	public Parcela(String parcela, String date, Double valor) {
+	public Parcela(Integer numero, String descricao, String vencimento, Double valor) {
 		super();
-		this.parcela = parcela;
-		this.date = date;
+		this.numero = numero;
+		this.descricao = descricao;
+		this.vencimento = vencimento;
 		this.valor = valor;
 	}
-	public String getParcela() {
-		return parcela;
+	public Integer getNumero() {
+		return numero;
 	}
-	public String getDate() {
-		return date;
+	public String getDescricao() {
+		return descricao;
+	}
+	public String getVencimento() {
+		return vencimento;
 	}
 	public Double getValor() {
 		return valor;
 	}
+	
 	
 }
