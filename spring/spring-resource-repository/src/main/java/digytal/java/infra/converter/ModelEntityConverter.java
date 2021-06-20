@@ -2,28 +2,37 @@ package digytal.java.infra.converter;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 class ModelEntityConverter extends ModelConveter {
+	ModelEntityConverter(Object src) {
+		super(src);
+		// TODO Auto-generated constructor stub
+	}
 	public Object newInstance() throws Exception{
 		Class srcClass = src.getClass();
 		Object other =Class.forName(srcClass.getPackage().getName()+"."+srcClass.getSimpleName()+"Entity").newInstance();
 		return converter(other);
-	
 	}
 	@Override
 	public Object converter(Object other) throws Exception {
 		for(Field field: src.getClass().getDeclaredFields()) {
 			Object value= field.get(src);
 			if(value!=null) {
-				invokeSet(other,field,value);
+				if(isCollection(value)) {
+					List list = get(field, other);
+					for(Object i: (List) value) {
+						Object ni = isDomainClass(i) ? getInstance(i).newInstance():i;
+						add(list,ni);
+					}
+				}else if(isDomainClass(value)) {
+					value = getInstance(value).newInstance();
+					set(other,field.getName(),value);
+				}else {
+					set(other,field.getName(),value);
+				}
 			}
 		}
 		return other;
 	}
-	private Object invokeSet(Object object, Field field,  Object value) throws Exception {
-		Class type = field.getType().isPrimitive() && field.getType().getName().equalsIgnoreCase("boolean") ? boolean.class:field.getType();
-		Method method = object.getClass().getMethod(method("set",field.getName()),type);
-		return method.invoke(object, value);
-	}
-
 }

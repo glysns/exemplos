@@ -1,20 +1,57 @@
 package digytal.java.infra.converter;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.Collection;
+import java.util.Map;
+
 public abstract class ModelConveter {
-	private static final ModelConveter MODEL_TO_ENTITY_CONVERTER = new ModelEntityConverter();
-	private static final ModelConveter ENTITY_TO_MODEL_CONVERTER = new EntityModelConverter();
-	static Object src;
+	protected Object src;
+	ModelConveter(Object src){
+		this.src=src;
+	}
 	public static synchronized ModelConveter getInstance(Object object) {
 		String prefixo = object.getClass().getSimpleName();
-		src=object;
 		if(prefixo.endsWith("Entity"))
-			return ENTITY_TO_MODEL_CONVERTER;
+			return  new EntityModelConverter(object);
 		else
-			return MODEL_TO_ENTITY_CONVERTER;
+			return new ModelEntityConverter(object);
 	}
 	String method(String prefix,String field) {
 		return prefix+field.substring(0,1).toUpperCase() + field.substring(1,field.length());
 	}
-	public abstract Object newInstance() throws Exception;
+	public abstract <E> E newInstance() throws Exception;
 	abstract Object converter(Object other) throws Exception;
+	
+	boolean isDomainClass(Object o){
+		Class c = o.getClass();
+		return !( c.isPrimitive() || c.getName().startsWith("java."));
+	}
+	boolean isCollection(Object o) {
+		  Class c = o.getClass();
+		  return Collection.class.isAssignableFrom(c) || Map.class.isAssignableFrom(c);
+	}
+	boolean isItem(Object o) {
+		  Class c = o.getClass();
+		  return isCollection(o) && isDomainClass(o);
+	}
+	Object add(Object list, Object item) throws Exception {
+		Method m = list.getClass().getDeclaredMethod("add",Object.class);
+		return m.invoke(list, item);
+	}
+	<E> E get(Field field, Object object) throws Exception {
+		String prefix = field.getType().equals(boolean.class)?"is":"get";		
+		Method method = object.getClass().getMethod(method(prefix,field.getName()));
+		return (E) method.invoke(object);
+	}
+	void field(Object object,String name, Object value) throws Exception {
+		Field f= object.getClass().getDeclaredField(name);
+		f.set(object, value);
+	}
+	Object set(Object object,String name, Object value) throws Exception {
+		//Class type = field.getType().isPrimitive() && field.getType().getName().equalsIgnoreCase("boolean") ? boolean.class:field.getType();
+		Class type = value.getClass().getName().equalsIgnoreCase("java.lang.Boolean") ? boolean.class:value.getClass();
+		Method method = object.getClass().getMethod(method("set",name),type);
+		return method.invoke(object, value);
+	}
 }

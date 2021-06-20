@@ -157,9 +157,13 @@ public class ExcelResultSet {
 	 * @return
 	 */
 	public boolean next() {
+		String content = sheet.getRow(currentRow).getCell(0).getStringCellValue();
+		if(content== null || content.isEmpty())
+			return false;
+		
 		if (currentRow == (sheet.getLastRowNum() + 1))
 			return false;
-
+		
 		readRow();
 		return true;
 	}
