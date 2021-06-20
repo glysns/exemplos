@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>digytal-java-exemplos</groupId>
-	<artifactId>utils-old</artifactId>
+	<artifactId>utils</artifactId>
 	<version>1.0</version>
 	<name>Digytal - Java Exemplos - Utils</name>
 	<description>Exemplos de Uso de classes Utilitárias na Linguagem Java</description>
